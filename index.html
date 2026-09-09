@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pdatahub — Personal Data Hub</title>
+  <meta name="description" content="Self-hosted OAuth + federated AI agent access. Your phone approves every tool call.">
+  <meta name="theme-color" content="#0f172a">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-elev: #1e293b;
+      --fg: #e2e8f0;
+      --fg-dim: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dim: #0ea5e9;
+      --border: #334155;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main { flex: 1; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 700; font-size: 18px; color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--fg); }
+
+    /* Hero */
+    .hero {
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--accent) 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero .tagline {
+      font-size: 22px;
+      color: var(--fg-dim);
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: var(--bg);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.15s;
+    }
+    .cta:hover { background: var(--accent-dim); transform: translateY(-1px); }
+    .cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--fg);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 16px;
+      margin-left: 12px;
+      transition: all 0.15s;
+    }
+    .cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Features */
+    .features { padding: 60px 0; }
+    .features h2 {
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 48px;
+      font-weight: 700;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .feature {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      transition: all 0.2s;
+    }
+    .feature:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .feature h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+    .feature p { color: var(--fg-dim); font-size: 15px; }
+
+    /* Stack */
+    .stack {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .stack h2 { font-size: 36px; margin-bottom: 24px; font-weight: 700; }
+    .stack p { color: var(--fg-dim); font-size: 18px; max-width: 600px; margin: 0 auto 32px; }
+    .stack-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    .stack-pill {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 14px;
+      color: var(--fg);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    /* Get started */
+    .cta-bottom {
+      padding: 80px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-bottom h2 { font-size: 36px; margin-bottom: 16px; font-weight: 700; }
+    .cta-bottom p { color: var(--fg-dim); font-size: 18px; margin-bottom: 32px; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+      color: var(--fg-dim);
+      font-size: 14px;
+    }
+    footer a { color: var(--fg-dim); text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: var(--accent); }
+    footer .sep { margin: 0 12px; opacity: 0.5; }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .hero { padding: 80px 0 60px; }
+      .hero h1 { font-size: 40px; }
+      .hero .tagline { font-size: 18px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">pdatahub</div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#stack">Stack</a>
+          <a href="https://github.com/pdatahub/pdatahub">GitHub</a>
+          <a href="https://github.com/pdatahub/pdatahub/tree/main/docs">Docs</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Personal Data Hub</h1>
+        <p class="tagline">
+          Self-hosted OAuth + federated AI agent access.
+          Your phone approves every tool call.
+        </p>
+        <a href="https://github.com/pdatahub/pdatahub" class="cta">
+          View on GitHub →
+        </a>
+        <a href="https://github.com/pdatahub/pdatahub/blob/main/docs/self-hosting.md" class="cta-secondary">
+          Self-host guide
+        </a>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <h2>Why pdatahub</h2>
+        <div class="feature-grid">
+          <div class="feature">
+            <h3>Phone-approved AI agents</h3>
+            <p>
+              Every tool call hits your Android for one-tap approval.
+              No silent access, no batched permission grants, no surprises.
+              Audit log streamed live to your phone.
+            </p>
+          </div>
+          <div class="feature">
+            <h3>Self-hosted OAuth proxy</h3>
+            <p>
+              Hub-core stores tokens encrypted in the OS keyring.
+              You control the master key, the encryption, the rotation.
+              No SaaS auth provider, no third-party telemetry.
+            </p>
+          </div>
+          <div class="feature">
+            <h3>Federation across instances</h3>
+            <p>
+              Your hub can delegate specific tools to a friend's hub.
+              Ed25519-signed delegations, replay-protected, with explicit
+              revocation. Cross-hub audit trail on both sides.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack" id="stack">
+      <div class="container">
+        <h2>Stack</h2>
+        <p>
+          A monorepo of seven packages. Plain SQLite. No SaaS dependencies,
+          no telemetry, no third-party auth. Built to be read and audited.
+        </p>
+        <div class="stack-grid">
+          <span class="stack-pill">TypeScript</span>
+          <span class="stack-pill">Node 20+</span>
+          <span class="stack-pill">SQLite</span>
+          <span class="stack-pill">Ed25519</span>
+          <span class="stack-pill">WebSocket</span>
+          <span class="stack-pill">MCP</span>
+          <span class="stack-pill">Go (cloud runner)</span>
+          <span class="stack-pill">Kotlin (Android)</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-bottom">
+      <div class="container">
+        <h2>Self-host in 5 minutes</h2>
+        <p>
+          Clone, install, set one env var, run. Single binary, no databases
+          to provision, no accounts to create.
+        </p>
+        <a href="https://github.com/pdatahub/pdatahub/blob/main/docs/self-hosting.md" class="cta">
+          Read the self-hosting guide →
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      MIT licensed
+      <span class="sep">·</span>
+      <a href="https://github.com/pdatahub/pdatahub">GitHub</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/pdatahub/pdatahub/tree/main/docs">Documentation</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/pdatahub/pdatahub/blob/main/docs/threat-model.md">Threat Model</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/pdatahub/pdatahub/issues">Issues</a>
+    </div>
+  </footer>
+</body>
+</html>
