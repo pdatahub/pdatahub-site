@@ -269,16 +269,45 @@
       </div>
     </section>
 
+    <section class="integrations" id="integrations">
+      <div class="container">
+        <h2>Plugins shipped today</h2>
+        <p>
+          Each plugin is a separate repo — install one in 30 seconds.
+          Write your own in ~30 lines using the Plugin SDK.
+        </p>
+        <div class="integration-grid">
+          <a href="https://github.com/pdatahub/pdatahub-plugin-google-calendar" class="integration-card">
+            <div class="integration-name">Google Calendar</div>
+            <div class="integration-desc">List, create, delete events on your primary calendar</div>
+          </a>
+          <a href="https://github.com/pdatahub/pdatahub-plugin-google-gmail" class="integration-card">
+            <div class="integration-name">Gmail</div>
+            <div class="integration-desc">Read, search, and send email through your Gmail account</div>
+          </a>
+          <a href="https://github.com/pdatahub/pdatahub-plugin-slack" class="integration-card">
+            <div class="integration-name">Slack</div>
+            <div class="integration-desc">Channels, messages, users, reactions — bot token scoped to your workspace</div>
+          </a>
+        </div>
+        <p style="margin-top: 32px;">
+          <a href="https://github.com/pdatahub/pdatahub/blob/main/docs/plugin-author-guide.md">Plugin author guide →</a>
+        </p>
+      </div>
+    </section>
+
     <section class="cta-bottom">
       <div class="container">
-        <h2>Self-host in 5 minutes</h2>
-        <p>
-          Clone, install, set one env var, run. Single binary, no databases
-          to provision, no accounts to create.
-        </p>
-        <a href="https://github.com/pdatahub/pdatahub/blob/main/docs/self-hosting.md" class="cta">
-          Read the self-hosting guide →
+        <h2>One command. 30 seconds.</h2>
+        <pre style="text-align: left; max-width: 640px; margin: 0 auto 24px; padding: 16px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; overflow-x: auto; font-family: 'SF Mono', Monaco, Consolas, monospace; font-size: 14px; color: var(--fg);"><code>git clone https://github.com/pdatahub/pdatahub
+cd pdatahub
+docker compose up</code></pre>
+        <a href="https://github.com/pdatahub/pdatahub/blob/main/docs/docker.md" class="cta">
+          Read the Docker guide →
         </a>
+        <p style="margin-top: 24px; color: var(--fg-dim); font-size: 14px;">
+          Don't want Docker? <a href="https://github.com/pdatahub/pdatahub/blob/main/docs/self-hosting.md">Self-host from source →</a>
+        </p>
       </div>
     </section>
   </main>
